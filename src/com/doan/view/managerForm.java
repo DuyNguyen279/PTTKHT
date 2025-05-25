@@ -4,6 +4,7 @@
  */
 package com.doan.view;
 
+import com.doan.model.account;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +16,12 @@ public class managerForm extends javax.swing.JFrame {
     /**
      * Creates new form managerForm
      */
-    public managerForm() {
+    static account a = new account();
+    public managerForm(account acc) {
         initComponents();
-        
+        a = acc;
         this.setLocationRelativeTo(null);
-        
-        BilliarTable bt = new BilliarTable();
+        BilliarTable bt = new BilliarTable(acc);
         MainContent.removeAll();
         MainContent.add(bt).setVisible(true);
         bt.setSize(MainContent.getWidth(), MainContent.getHeight());
@@ -40,11 +41,15 @@ public class managerForm extends javax.swing.JFrame {
 
         background = new javax.swing.JPanel();
         nav = new javax.swing.JPanel();
-        homeBtn = new javax.swing.JButton();
-        ItemBtn = new javax.swing.JButton();
-        CueBtn = new javax.swing.JButton();
         LogoutBtn = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+        homeBtn = new javax.swing.JButton();
+        reservedBtn = new javax.swing.JButton();
         tableBtn = new javax.swing.JButton();
+        CueBtn = new javax.swing.JButton();
+        itemBtn = new javax.swing.JButton();
+        serviceBtn = new javax.swing.JButton();
+        cusBtn = new javax.swing.JButton();
         EmpBtn = new javax.swing.JButton();
         AccBtn = new javax.swing.JButton();
         ReportBtn = new javax.swing.JButton();
@@ -58,33 +63,6 @@ public class managerForm extends javax.swing.JFrame {
 
         nav.setBackground(new java.awt.Color(0, 64, 140));
 
-        homeBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/home48.png"))); // NOI18N
-        homeBtn.setText("Trang Chủ");
-        homeBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homeBtnActionPerformed(evt);
-            }
-        });
-
-        ItemBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        ItemBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/snack48.png"))); // NOI18N
-        ItemBtn.setText("Dịch Vụ");
-        ItemBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ItemBtnActionPerformed(evt);
-            }
-        });
-
-        CueBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        CueBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/cue48.png"))); // NOI18N
-        CueBtn.setText("Gậy Bida");
-        CueBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CueBtnActionPerformed(evt);
-            }
-        });
-
         LogoutBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         LogoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/logout48.png"))); // NOI18N
         LogoutBtn.setText("Đăng Xuất");
@@ -94,62 +72,127 @@ public class managerForm extends javax.swing.JFrame {
             }
         });
 
+        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar1.setRollover(true);
+
+        homeBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/home48.png"))); // NOI18N
+        homeBtn.setText("Trang Chủ");
+        homeBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(homeBtn);
+
+        reservedBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        reservedBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/reverve.png"))); // NOI18N
+        reservedBtn.setText("Đặt Trước");
+        reservedBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        reservedBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reservedBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(reservedBtn);
+
         tableBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         tableBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/table48.png"))); // NOI18N
-        tableBtn.setText("Bàn Bida");
+        tableBtn.setText("Bàn Bida  ");
+        tableBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
         tableBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tableBtnActionPerformed(evt);
             }
         });
+        jToolBar1.add(tableBtn);
+
+        CueBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        CueBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/cue48.png"))); // NOI18N
+        CueBtn.setText("Gậy Bida  ");
+        CueBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        CueBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CueBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(CueBtn);
+
+        itemBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        itemBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/snack48.png"))); // NOI18N
+        itemBtn.setText("Sản Phẩm");
+        itemBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        itemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(itemBtn);
+
+        serviceBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        serviceBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/food-and-drink-48.png"))); // NOI18N
+        serviceBtn.setText("Dịch Vụ   ");
+        serviceBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        serviceBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                serviceBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(serviceBtn);
+
+        cusBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cusBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/customer48.png"))); // NOI18N
+        cusBtn.setText("Khách Hàng");
+        cusBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        cusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cusBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(cusBtn);
 
         EmpBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        EmpBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/employees.png"))); // NOI18N
+        EmpBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/employee48.png"))); // NOI18N
         EmpBtn.setText("Nhân Viên");
+        EmpBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        EmpBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmpBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(EmpBtn);
 
         AccBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        AccBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/account.png"))); // NOI18N
+        AccBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/account48.png"))); // NOI18N
         AccBtn.setText("Tài Khoản");
+        AccBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        AccBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(AccBtn);
 
         ReportBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        ReportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/report.png"))); // NOI18N
+        ReportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/analytics48.png"))); // NOI18N
         ReportBtn.setText("Thống Kê");
+        ReportBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        jToolBar1.add(ReportBtn);
 
         javax.swing.GroupLayout navLayout = new javax.swing.GroupLayout(nav);
         nav.setLayout(navLayout);
         navLayout.setHorizontalGroup(
             navLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(navLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LogoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CueBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ItemBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tableBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EmpBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AccBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ReportBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LogoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         navLayout.setVerticalGroup(
             navLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(tableBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(CueBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(ItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(EmpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(AccBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(ReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LogoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,11 +201,11 @@ public class managerForm extends javax.swing.JFrame {
         MainContent.setLayout(MainContentLayout);
         MainContentLayout.setHorizontalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1164, Short.MAX_VALUE)
+            .addGap(0, 1146, Short.MAX_VALUE)
         );
         MainContentLayout.setVerticalGroup(
             MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
@@ -170,7 +213,7 @@ public class managerForm extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(nav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -202,7 +245,7 @@ public class managerForm extends javax.swing.JFrame {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-        BilliarTable bt = new BilliarTable();
+        BilliarTable bt = new BilliarTable(a);
         MainContent.removeAll();
         MainContent.add(bt).setVisible(true);
         bt.setSize(MainContent.getWidth(), MainContent.getHeight());
@@ -244,16 +287,71 @@ public class managerForm extends javax.swing.JFrame {
         MainContent.setVisible(true);
     }//GEN-LAST:event_CueBtnActionPerformed
 
-    private void ItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemBtnActionPerformed
+    private void serviceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviceBtnActionPerformed
         // TODO add your handling code here:
-        ProductForm pf = new ProductForm();
+        ServiceForm pf = new ServiceForm();
         MainContent.removeAll();
         MainContent.add(pf).setVisible(true);
         pf.setSize(MainContent.getWidth(), MainContent.getHeight());
         MainContent.revalidate();
         MainContent.repaint();
         MainContent.setVisible(true);
-    }//GEN-LAST:event_ItemBtnActionPerformed
+    }//GEN-LAST:event_serviceBtnActionPerformed
+
+    private void EmpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpBtnActionPerformed
+        // TODO add your handling code here:
+        emInfo ei = new emInfo();
+        MainContent.removeAll();
+        MainContent.add(ei).setVisible(true);
+        ei.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_EmpBtnActionPerformed
+
+    private void AccBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccBtnActionPerformed
+        // TODO add your handling code here:
+        accountForm af = new accountForm();
+        MainContent.removeAll();
+        MainContent.add(af).setVisible(true);
+        af.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_AccBtnActionPerformed
+
+    private void itemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBtnActionPerformed
+        // TODO add your handling code here:
+        ItemForm it = new ItemForm();
+        MainContent.removeAll();
+        MainContent.add(it).setVisible(true);
+        it.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_itemBtnActionPerformed
+
+    private void cusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cusBtnActionPerformed
+        // TODO add your handling code here:
+        customerForm cf = new customerForm();
+        MainContent.removeAll();
+        MainContent.add(cf).setVisible(true);
+        cf.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_cusBtnActionPerformed
+
+    private void reservedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservedBtnActionPerformed
+        // TODO add your handling code here:
+        ReservedForm rf = new ReservedForm(a);
+        MainContent.removeAll();
+        MainContent.add(rf).setVisible(true);
+        rf.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_reservedBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,7 +383,7 @@ public class managerForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new managerForm().setVisible(true);
+                new managerForm(a).setVisible(true);
             }
         });
     }
@@ -294,13 +392,17 @@ public class managerForm extends javax.swing.JFrame {
     private javax.swing.JButton AccBtn;
     private javax.swing.JButton CueBtn;
     private javax.swing.JButton EmpBtn;
-    private javax.swing.JButton ItemBtn;
     private javax.swing.JButton LogoutBtn;
     private javax.swing.JPanel MainContent;
     private javax.swing.JButton ReportBtn;
     private javax.swing.JPanel background;
+    private javax.swing.JButton cusBtn;
     private javax.swing.JButton homeBtn;
+    private javax.swing.JButton itemBtn;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel nav;
+    private javax.swing.JButton reservedBtn;
+    private javax.swing.JButton serviceBtn;
     private javax.swing.JButton tableBtn;
     // End of variables declaration//GEN-END:variables
 }

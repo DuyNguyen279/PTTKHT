@@ -121,5 +121,17 @@ public class ItemDAO implements DaoInterface<item> {
         }
         return t;
     }
-    
+
+    public void softdelete(String id) {
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "UPDATE item SET is_delete = 1 WHERE item_id = ?";
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+            JDBCUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

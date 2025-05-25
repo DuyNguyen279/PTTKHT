@@ -12,6 +12,8 @@ import com.doan.model.bill;
 import com.doan.model.billiard_table;
 import com.doan.model.cue;
 import com.doan.model.item;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -21,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Asus
  */
-public class ProductForm extends javax.swing.JInternalFrame {
+public class ServiceForm extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ProductForm
@@ -30,7 +32,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
     bill tmpBill = new bill();
-    public ProductForm() {
+    public ServiceForm() {
         initComponents();
 
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
@@ -55,8 +57,9 @@ public class ProductForm extends javax.swing.JInternalFrame {
         
 
         String [] columns = {"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá"};
+        String [] columns2 = {"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Thành Tiền"};
         model.setColumnIdentifiers(columns);
-        model2.setColumnIdentifiers(columns);
+        model2.setColumnIdentifiers(columns2);
         allItem.setModel(model);
         itemInBill.setModel(model2);
 
@@ -76,7 +79,15 @@ public class ProductForm extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Không có bàn nào đang sử dụng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
+        listBilliarTable.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadDataTable2();
+                calculate();
+            }
+        });
         
+        calculate();
     }
 
     /**
@@ -105,6 +116,8 @@ public class ProductForm extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         Spinner1 = new javax.swing.JSpinner();
         addItemToBillBTN = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        tmpTotal = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -117,11 +130,6 @@ public class ProductForm extends javax.swing.JInternalFrame {
         jLabel1.setText("Chọn Bàn");
 
         listBilliarTable.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        listBilliarTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listBilliarTableActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -242,30 +250,39 @@ public class ProductForm extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("Tạm Tính");
+
+        tmpTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tmpTotal.setForeground(new java.awt.Color(255, 102, 102));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(jLabel4)
-                        .addGap(33, 33, 33)
-                        .addComponent(Spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addItemToBillBTN)
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 1, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(Spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(addItemToBillBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(198, 198, 198)
+                .addComponent(jLabel5)
+                .addGap(69, 69, 69)
+                .addComponent(tmpTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,12 +297,14 @@ public class ProductForm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(Spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addItemToBillBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                    .addComponent(addItemToBillBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tmpTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jInternalFrame1.setBorder(null);
@@ -352,11 +371,6 @@ public class ProductForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listBilliarTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listBilliarTableActionPerformed
-        // TODO add your handling code here:
-        loadDataTable2();
-    }//GEN-LAST:event_listBilliarTableActionPerformed
-
     private void addItemToBillBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToBillBTNActionPerformed
         // TODO add your handling code here:
         int i_row = allItem.getSelectedRow();
@@ -364,22 +378,44 @@ public class ProductForm extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần thêm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        int maxQuantity = (int) allItem.getValueAt(i_row, 2);
+        int maxQuantity = Integer.valueOf(allItem.getValueAt(i_row, 2).toString());
         if ((int) Spinner1.getValue() > maxQuantity || (int) Spinner1.getValue() <= 0) {
             JOptionPane.showMessageDialog(null, "Số lượng không hợp lệ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm sản phẩm này vào hóa đơn không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (check == JOptionPane.YES_OPTION) {
-            item it = new ItemDAO().getInstance().selectById(allItem.getValueAt(i_row, 0).toString());
-            new addItemToBill().getInstance().add(tmpBill.getBill_id(), it, (int) Spinner1.getValue());
-            model.setValueAt(maxQuantity - (int) Spinner1.getValue(), i_row, 2);
-            model2.addRow(new Object[]{
-                it.getItem_id(),
-                it.getItem_name(),
-                Spinner1.getValue(),
-                it.getItem_price()
-            });
+            item it = new item();
+            boolean kt = false;
+            for (int i=0; i<model2.getRowCount(); i++){
+                if (model2.getValueAt(i, 0).equals(model.getValueAt(i_row, 0))){
+                    int oldQuantity = (int) model2.getValueAt(i, 2);
+                    int plusQuantity = (int) Spinner1.getValue();
+                    model2.setValueAt(oldQuantity + plusQuantity, i, 2);
+                    model2.setValueAt((double)((oldQuantity + plusQuantity) * (double) model2.getValueAt(i_row, 3)), i_row, 4);
+                    it = new ItemDAO().getInstance().selectById(allItem.getValueAt(i_row, 0).toString());
+                    it.setItem_quantity(oldQuantity + plusQuantity);
+                    calculate();
+                    new addItemToBill().getInstance().update(tmpBill.getBill_id(), it,maxQuantity, plusQuantity, Double.valueOf(tmpTotal.getText()));
+
+                    model.setValueAt(maxQuantity - plusQuantity, i_row, 2);
+                    kt = true;
+                    break;
+                }
+            }
+            if (kt == false){
+                it = new ItemDAO().getInstance().selectById(allItem.getValueAt(i_row, 0).toString());
+                model2.addRow(new Object[]{
+                    it.getItem_id(),
+                    it.getItem_name(),
+                    Spinner1.getValue(),
+                    it.getItem_price(),
+                    it.getItem_price() * (int) Spinner1.getValue()
+                });
+                calculate();
+                new addItemToBill().getInstance().add(tmpBill.getBill_id(), it, (int) Spinner1.getValue(), Double.valueOf(tmpTotal.getText()));
+                model.setValueAt(maxQuantity - (int) Spinner1.getValue(), i_row, 2);    
+            }   
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             Spinner1.setValue(0);
         }
@@ -398,30 +434,44 @@ public class ProductForm extends javax.swing.JInternalFrame {
     }
 
     public void loadDataTable2() {  
-        bill tmpBill = new BillDAO().getInstance().getTmpBill(listBilliarTable.getSelectedItem().toString());
-        List<item> listItem = tmpBill.getItems();
-        List<cue> listCue = tmpBill.getCues();
-        model2.setRowCount(0);
-        if (listCue == null) {
-            return;
-        }
-        for (cue x : listCue) {
-            model2.addRow(new Object[]{
-                x.getCue_id(),
-                x.getCue_name(),
-                x.getCue_quantity(),
-                x.getCue_price()
-            });
-        }
-        for (item x : listItem) {
-            model2.addRow(new Object[]{
-                x.getItem_id(),
-                x.getItem_name(),
-                x.getItem_quantity(),
-                x.getItem_price()
-            });
-        }
+         bill tmpBill = new BillDAO().getInstance().getTmpBill(listBilliarTable.getSelectedItem().toString());
+         model2.setRowCount(0);
+         if (tmpBill == null) {
+             return;
+         }
+         List<item> listItem = tmpBill.getItems();
+         List<cue> listCue = tmpBill.getCues();
+         
+         if (listCue == null) {
+             return;
+         }
+         for (cue x : listCue) {
+             model2.addRow(new Object[]{
+                 x.getCue_id(),
+                 x.getCue_name(),
+                 x.getCue_quantity(),
+                 x.getCue_price(),
+                 x.getCue_price() * x.getCue_quantity()
+             });
+         }
+         for (item x : listItem) {
+             model2.addRow(new Object[]{
+                 x.getItem_id(),
+                 x.getItem_name(),
+                 x.getItem_quantity(),
+                 x.getItem_price(),
+                 x.getItem_quantity()*x.getItem_price()
+             });
+         }
     }
+    
+    public void calculate(){
+        double s = 0;
+        for (int i = 0; i<model2.getRowCount(); i++)
+            s += (double) model2.getValueAt(i, 4);
+        tmpTotal.setText(String.valueOf(s));
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner Spinner1;
@@ -433,6 +483,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -444,5 +495,6 @@ public class ProductForm extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> listBilliarTable;
+    private javax.swing.JLabel tmpTotal;
     // End of variables declaration//GEN-END:variables
 }

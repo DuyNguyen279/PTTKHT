@@ -4,7 +4,33 @@
  */
 package com.doan.view;
 
+import com.doan.control.end;
+import com.doan.control.play;
+import com.doan.dao.BillDAO;
+import com.doan.dao.CueDAO;
+import com.doan.dao.ReservedDAO;
+import com.doan.dao.billiardTableDAO;
+import com.doan.dao.customerDAO;
+import com.doan.dao.employeeDAO;
+import com.doan.model.account;
+import com.doan.model.bill;
+import com.doan.model.billiard_table;
+import com.doan.model.cue;
+import com.doan.model.customer;
+import com.doan.model.item;
+import com.doan.model.reservation;
+
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,13 +42,53 @@ public class BilliarTableForm extends javax.swing.JPanel {
      * Creates new form BilliarTableForm
      */
 
+    public static List<BilliarTableForm> allForms = new ArrayList<>();
+
     Color emptyColor = new Color(0, 250, 154);
     Color inUseColor = new Color(100, 149, 237);
     Color damageColor = new Color(139, 0, 0);
+    Color reservedColor = new Color(255, 215, 0);
 
-    public BilliarTableForm() {
+    String Status;
+    account a;
+    String res_id;
+    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel modelCue = new DefaultTableModel();
+    DefaultTableModel modelCueInBill = new DefaultTableModel();
+    public BilliarTableForm(account acc) {
         initComponents();
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        modelCue = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        modelCueInBill = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
 
+        String[] column = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Giá", "Số Lượng"};
+        model.setColumnIdentifiers(column);
+        allInBill.setModel(model);
+
+        String[] columnCue = {"Mã Gậy", "Tên Gậy", "Giá", "Số Lượng"};
+        modelCue.setColumnIdentifiers(columnCue);
+        modelCueInBill.setColumnIdentifiers(columnCue);
+        CueInBill.setModel(modelCueInBill);
+        allCue.setModel(modelCue);
+
+        this.a = acc;
+        working();
+        // startReservationTimer();
     }
 
     /**
@@ -34,9 +100,414 @@ public class BilliarTableForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rentCue = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        allCue = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        CueInBill = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        Spinner1 = new javax.swing.JSpinner();
+        doneBtn = new javax.swing.JButton();
+        addCueToBillBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        endRent = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        phoneCus = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        start = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        end = new javax.swing.JLabel();
+        JSroll = new javax.swing.JScrollPane();
+        allInBill = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cancelDone = new javax.swing.JButton();
+        Done = new javax.swing.JButton();
         backgorund = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        rentCue.setModal(true);
+        rentCue.setSize(new java.awt.Dimension(1100, 800));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("Chọn Gậy Thuê");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(486, 486, 486)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Danh Sách Gậy Thuê");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(24, 24, 24))
+        );
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Gậy Thuê Trong Hóa Đơn");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(24, 24, 24))
+        );
+
+        allCue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        allCue.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(allCue);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+        );
+
+        CueInBill.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CueInBill.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(CueInBill);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel7.setText("Số Lượng");
+
+        Spinner1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        doneBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        doneBtn.setText("Xong");
+        doneBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doneBtnActionPerformed(evt);
+            }
+        });
+
+        addCueToBillBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        addCueToBillBtn.setText("Thêm");
+        addCueToBillBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCueToBillBtnActionPerformed(evt);
+            }
+        });
+
+        cancelBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cancelBtn.setText("Hủy");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(Spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(addCueToBillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(doneBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(Spinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(doneBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCueToBillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout rentCueLayout = new javax.swing.GroupLayout(rentCue.getContentPane());
+        rentCue.getContentPane().setLayout(rentCueLayout);
+        rentCueLayout.setHorizontalGroup(
+            rentCueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1111, Short.MAX_VALUE)
+            .addGroup(rentCueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        rentCueLayout.setVerticalGroup(
+            rentCueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 794, Short.MAX_VALUE)
+            .addGroup(rentCueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rentCueLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        endRent.setBackground(new java.awt.Color(255, 255, 255));
+        endRent.setModal(true);
+        endRent.setSize(new java.awt.Dimension(1100, 800));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Thông Tin Chi Tiết");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Số Điện Thoại");
+
+        phoneCus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Bắt Đầu:");
+
+        start.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        start.setText("jLabel11");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("Kết Thúc:");
+
+        end.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        end.setText("jLabel11");
+
+        allInBill.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        JSroll.setViewportView(allInBill);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setText("Tổng Tiền");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setText("jLabel13");
+
+        cancelDone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cancelDone.setText("Hủy");
+        cancelDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelDoneActionPerformed(evt);
+            }
+        });
+
+        Done.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Done.setText("Thanh Toán");
+        Done.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DoneActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JSroll)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(phoneCus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(203, 203, 203)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(end, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel12)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(134, 134, 134)
+                        .addComponent(cancelDone, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(Done)))
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(phoneCus)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(end, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(JSroll, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelDone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Done, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout endRentLayout = new javax.swing.GroupLayout(endRent.getContentPane());
+        endRent.getContentPane().setLayout(endRentLayout);
+        endRentLayout.setHorizontalGroup(
+            endRentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        endRentLayout.setVerticalGroup(
+            endRentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setPreferredSize(new java.awt.Dimension(250, 250));
 
@@ -49,14 +520,19 @@ public class BilliarTableForm extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Bàn 1");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Thường");
+
         javax.swing.GroupLayout backgorundLayout = new javax.swing.GroupLayout(backgorund);
         backgorund.setLayout(backgorundLayout);
         backgorundLayout.setHorizontalGroup(
             backgorundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorundLayout.createSequentialGroup()
                 .addGroup(backgorundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         backgorundLayout.setVerticalGroup(
@@ -65,7 +541,9 @@ public class BilliarTableForm extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -76,26 +554,322 @@ public class BilliarTableForm extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgorund, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(backgorund, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    // private void startReservationTimer() {
+    //     List<reservation> listReserved = new ReservedDAO().getInstance().selectAll();
+    //     List<reservation> listCurrReserved = new ArrayList<>();
+    //     for (reservation re : listReserved) {
+    //         LocalDate today = java.time.LocalDate.now();
+    //         if (re.getStart_time() != null && re.getStart_time().toLocalDate().equals(today) && re.getTab_id().equals(jLabel2.getText())) {
+    //             listCurrReserved.add(re);
+    //         }
+    //     }
+    //     Timer timer = new javax.swing.Timer(60 * 1000, e -> { // Kiểm tra mỗi phút
+    //         for (reservation r : listCurrReserved) {
+    //             LocalDateTime now = LocalDateTime.now();
+    //             if (now.isAfter(r.getStart_time().minusHours(2)) && now.isBefore(r.getStart_time())) {
+    //                 setBackgroundColor("Đang chờ");
+    //                 res_id = r.getRes_id();
+    //                 break;
+    //             } else if (Status != null) {
+    //                 setBackgroundColor(Status); // Trả lại màu cũ nếu không còn trong khoảng
+    //             }
+    //         }
+    //     });
+    //     timer.start();
+    // }
+
+    public void updateReservationStatus() {
+        List<reservation> listReserved = new ReservedDAO().getInstance().selectAll();
+            List<reservation> listCurrReserved = new ArrayList<>();
+            for (reservation re : listReserved) {
+                LocalDate today = java.time.LocalDate.now();
+                if (re.getStart_time() != null && re.getStart_time().toLocalDate().equals(today) && re.getTab_id().equals(jLabel2.getText())) {
+                    listCurrReserved.add(re);
+                }
+            }
+            for (reservation r : listCurrReserved) {
+                LocalDateTime now = LocalDateTime.now();
+                if (now.isAfter(r.getStart_time().minusHours(2)) && now.isBefore(r.getStart_time())) {
+                    setBackgroundColor("Đang chờ");
+                    res_id = r.getRes_id();
+                    break;
+                } else if (Status != null) {
+                    setBackgroundColor(Status); // Trả lại màu cũ nếu không còn trong khoảng
+                }
+            }
+    }
+    
+    private void doneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneBtnActionPerformed
+        // TODO add your handling code here:
+        bill tmpBill = new BillDAO().getInstance().getTmpBill(jLabel2.getText());
+        if (modelCueInBill.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng thêm gậy", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        for (int i=0;i<modelCueInBill.getRowCount();i++){
+            cue c = new CueDAO().getInstance().selectById((String) modelCueInBill.getValueAt(i, 0));
+            int x = ((int) modelCueInBill.getValueAt(i, 3));
+            new play().getInstance().addCueToBill(tmpBill.getBill_id(), c, x);
+        }
+        JOptionPane.showMessageDialog(null, "Thêm Gậy Thành Công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        rentCue.setVisible(false);
+    }//GEN-LAST:event_doneBtnActionPerformed
+
+    private void addCueToBillBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCueToBillBtnActionPerformed
+        // TODO add your handling code here:
+        int i_row = allCue.getSelectedRow();
+        if (i_row == -1){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn gậy để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        int max_quantity = (int) allCue.getValueAt(i_row, 3);
+        if ((int) Spinner1.getValue() > max_quantity || (int) Spinner1.getValue() <= 0){
+            JOptionPane.showMessageDialog(null, "Số lượng gậy không hợp lệ", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        modelCue.setValueAt(max_quantity - (int) Spinner1.getValue(), i_row, 3);
+        modelCueInBill.addRow(new Object[]{
+            allCue.getValueAt(i_row, 0),
+            allCue.getValueAt(i_row, 1),
+            allCue.getValueAt(i_row, 2),
+            Spinner1.getValue()
+        });
+    }//GEN-LAST:event_addCueToBillBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        // TODO add your handling code here:
+        rentCue.setVisible(false);
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void cancelDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDoneActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Hủy kết thúc", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        endRent.setVisible(false);
+    }//GEN-LAST:event_cancelDoneActionPerformed
+
+    private void DoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoneActionPerformed
+        // TODO add your handling code here:
+        bill tmpBill = new BillDAO().getInstance().getTmpBill(jLabel2.getText());
+        billiard_table table = new billiardTableDAO().getInstance().selectById(jLabel2.getText());
+
+        double soGio = Duration.between(table.getStart(), LocalDateTime.now()).toMinutes() / 60.0;
+        customer cus = new customer();
+        if (phoneCus.getText().isEmpty()) {
+            cus = new customerDAO().getInstance().selectById("cus0");
+        } else {
+            cus = new customerDAO().getInstance().selectByPhone(phoneCus.getText());
+            if (cus == null) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        List<cue> listCue = tmpBill.getCues();
+        for (cue c : listCue){
+            cue x = new CueDAO().getInstance().selectById(c.getCue_id());
+            c.setCue_quantity(x.getCue_quantity() + c.getCue_quantity());
+            new CueDAO().getInstance().update(c);
+        }
+
+        tmpBill.setCus_id(cus.getCus_id());
+        if (cus.getPoint() > 100 && cus.getCus_id()!= "cus0") {
+            int confirm = JOptionPane.showConfirmDialog(null, "Khách hàng hiện có " + cus.getPoint() + ", có muốn quy đổi điểm không? (Điểm quy đổi là bội số của 100)", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                String input = JOptionPane.showInputDialog(null, "Nhập số điểm quy đổi (là bội số của 100):", "Quy đổi điểm", JOptionPane.PLAIN_MESSAGE);
+                if (input != null && !input.trim().isEmpty()) {
+                    try {
+                        int x = Integer.parseInt(input.trim());
+                        if (x > cus.getPoint()) {
+                            JOptionPane.showMessageDialog(null, "Số điểm quy đổi không được lớn hơn điểm hiện có!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        // Nếu cần kiểm tra bội số của 100:
+                        if (x % 100 != 0) {
+                            JOptionPane.showMessageDialog(null, "Số điểm quy đổi phải là bội số của 100!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        if(Double.parseDouble(jLabel13.getText()) - 50000 * (x / 100) < 0){
+                            jLabel13.setText("0");
+                        } else {
+                            jLabel13.setText(String.valueOf(Double.parseDouble(jLabel13.getText()) - 50000 * (x / 100)));
+                        }
+                        
+                        cus.setPoint(cus.getPoint() - x);
+                        
+                        JOptionPane.showMessageDialog(null, "Quy đổi điểm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Vui lòng nhập một số hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+        cus.setPoint(cus.getPoint() + 5 * (int) soGio);
+        new end().getInstance().updateCusPoint(cus);
+        tmpBill.setTotal(Double.parseDouble(jLabel13.getText()));
+        tmpBill.setIs_done(true);
+        new end().getInstance().updateBill(tmpBill);
+        table.setStart(null);
+        table.setEnd(null);
+        table.setStatus("Trống");
+        new end().getInstance().updateTab(table);
+        JOptionPane.showMessageDialog(null, "Kết thúc thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        endRent.setVisible(false);
+        setBackgroundColor("Trống");
+    }//GEN-LAST:event_DoneActionPerformed
 
     public void setBackgroundColor(String status){
         if ("Trống".equals(status)){
             backgorund.setBackground(emptyColor);
+            Status = "Trống";
         } else if ("Đang sử dụng".equals(status)){
             backgorund.setBackground(inUseColor);
+            Status = "Đang sử dụng";
         } else if ("Hỏng".equals(status)){
             backgorund.setBackground(damageColor);
+            Status = "Hỏng";
+        } else if ("Đang chờ".equals(status)){
+            backgorund.setBackground(reservedColor);
+            Status = "Đang chờ";
         }
     }
 
     public void setTableName(String name){
         jLabel2.setText(name);
     }
+    public void setTableType(String type){
+        jLabel3.setText(type);
+    }
+
+    public void working(){
+        backgorund.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (Status.equals("Trống") || Status.equals("Đang chờ")){
+                    int confirm = JOptionPane.showConfirmDialog(null, "Bạn có muốn đặt bàn này không?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+                    if (confirm != JOptionPane.YES_OPTION) {
+                        return;
+                    }
+                    //
+                    if (Status.equals("Đang chờ")){
+                        reservation r = new ReservedDAO().getInstance().selectById(res_id);
+                        r.setStatus("Hoàn Thành");
+                        new ReservedDAO().getInstance().update(r);
+                    }
+                    //
+                    new play().playGame(jLabel2.getText(), new employeeDAO().getInstance().getEmpIdByAccId(a.getAcc_id()));
+                    
+                    int confirm2 = JOptionPane.showConfirmDialog(null, "Bạn có muốn thuê gậy không?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+                    if (confirm2 == JOptionPane.YES_OPTION) {
+                        modelCue.setRowCount(0);
+                        modelCueInBill.setRowCount(0);
+                        List<cue> listCue = new CueDAO().getInstance().selectAll();
+                        for (cue x : listCue){
+                            if (!x.isIs_delete()){
+                                modelCue.addRow(new Object[]{
+                                    x.getCue_id(),
+                                    x.getCue_name(),
+                                    x.getCue_price(),
+                                    x.getCue_quantity()
+                                });
+                            }
+                        }
+                        rentCue.setLocationRelativeTo(null);
+                        rentCue.setVisible(true);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Đặt bàn thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    setBackgroundColor("Đang sử dụng");
+                }
+                else if(Status.equals("Đang sử dụng")){
+                    int confirm = JOptionPane.showConfirmDialog(null, "Bạn có muốn kết thúc không?", "Xác nhận", javax.swing.JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        
+                        bill tmpBill = new BillDAO().getInstance().getTmpBill(jLabel2.getText());
+                        billiard_table table = new billiardTableDAO().getInstance().selectById(jLabel2.getText());
+                        table.setEnd(LocalDateTime.now());
+                        start.setText(table.getStart().toString());
+                        end.setText(table.getEnd().toString());
+                        double soGio = Duration.between(table.getStart(), table.getEnd()).toMinutes() / 60.0;
+                        model.setRowCount(0);
+                        
+                        List<item> listItem = tmpBill.getItems();
+                        List<cue> listCue = tmpBill.getCues();
+                        double s1 = 0;
+                        for (cue x : listCue){
+                            model.addRow(new Object[]{
+                                x.getCue_id(),
+                                x.getCue_name(),
+                                x.getCue_price(),
+                                x.getCue_quantity()
+                            });
+                            s1 += x.getCue_price() * x.getCue_quantity()*(soGio);
+                        }
+                        double s2 = 0;
+                        for (item x : listItem){
+                            model.addRow(new Object[]{
+                                x.getItem_id(),
+                                x.getItem_name(),
+                                x.getItem_price(),
+                                x.getItem_quantity()
+                            });
+                            s2 += x.getItem_price() * x.getItem_quantity();
+                        }
+                        jLabel13.setText(String.valueOf(s1 + s2 + table.getTab_price()*soGio));
+
+                        endRent.setLocationRelativeTo(null);
+                        endRent.setVisible(true); 
+                        
+                    } 
+
+                }
+            }
+        });
+    }
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable CueInBill;
+    private javax.swing.JButton Done;
+    private javax.swing.JScrollPane JSroll;
+    private javax.swing.JSpinner Spinner1;
+    private javax.swing.JButton addCueToBillBtn;
+    private javax.swing.JTable allCue;
+    private javax.swing.JTable allInBill;
     private javax.swing.JPanel backgorund;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton cancelDone;
+    private javax.swing.JButton doneBtn;
+    private javax.swing.JLabel end;
+    private javax.swing.JDialog endRent;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField phoneCus;
+    private javax.swing.JDialog rentCue;
+    private javax.swing.JLabel start;
     // End of variables declaration//GEN-END:variables
 }

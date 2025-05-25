@@ -50,9 +50,10 @@ public class TableForm extends javax.swing.JInternalFrame {
         List<billiard_table> list = new billiardTableDAO().getInstance().selectAll();
         loadDataTable(list);
 
-        txtStatus.addItem("Trống");
-        txtStatus.addItem("Hỏng");
+        txttype.addItem("Thường");
+        txttype.addItem("VIP");
         
+        check();
     }
 
     /**
@@ -76,6 +77,8 @@ public class TableForm extends javax.swing.JInternalFrame {
         txtPriceBilliardTable = new javax.swing.JTextField();
         addNewBilliardTableBtn = new javax.swing.JButton();
         CancelAddNewBtn = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        TypeTableCombo = new javax.swing.JComboBox<>();
         editBilliardTable = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -89,7 +92,7 @@ public class TableForm extends javax.swing.JInternalFrame {
         saveNewInfoBtn = new javax.swing.JButton();
         CancelSaveNewInfoBtn = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JComboBox<>();
+        txttype = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -163,24 +166,32 @@ public class TableForm extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setText("Loại Bàn");
+
+        TypeTableCombo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        TypeTableCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thường", "VIP" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(278, Short.MAX_VALUE)
+                .addGap(278, 278, 278)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(45, 45, 45)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIdBilliardTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNameBilliardTable)
-                            .addComponent(txtPriceBilliardTable, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPriceBilliardTable, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(TypeTableCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(addNewBilliardTableBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(137, 137, 137)
@@ -199,11 +210,15 @@ public class TableForm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNameBilliardTable, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPriceBilliardTable, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(TypeTableCombo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelAddNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addNewBilliardTableBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,9 +299,9 @@ public class TableForm extends javax.swing.JInternalFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel11.setText("Trạng Thái");
+        jLabel11.setText("Loại Bàn");
 
-        txtStatus.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txttype.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -312,7 +327,7 @@ public class TableForm extends javax.swing.JInternalFrame {
                             .addComponent(txtEditIdBilliardTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEditNameBilliardTable)
                             .addComponent(txtEditPriceBilliardTable, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(txtStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txttype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(264, 264, 264))
         );
         jPanel6Layout.setVerticalGroup(
@@ -333,7 +348,7 @@ public class TableForm extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtStatus)
+                    .addComponent(txttype)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -357,6 +372,9 @@ public class TableForm extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder("Chỉnh Sửa"));
         jToolBar1.setRollover(true);
 
@@ -478,7 +496,7 @@ public class TableForm extends javax.swing.JInternalFrame {
 
     private void addNewBilliardTableBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBilliardTableBtnActionPerformed
         // TODO add your handling code here:
-        if (txtNameBilliardTable.getText().isEmpty() || txtPriceBilliardTable.getText().isEmpty()) {
+        if (txtNameBilliardTable.getText().isEmpty() || txtPriceBilliardTable.getText().isEmpty() ) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -489,7 +507,8 @@ public class TableForm extends javax.swing.JInternalFrame {
         String id = txtIdBilliardTable.getText();
         String name = txtNameBilliardTable.getText();
         Double price = Double.parseDouble(txtPriceBilliardTable.getText());
-        new addNew().getInstance().addNewBilliardTable(id, name, price);
+        String type = TypeTableCombo.getSelectedItem().toString();
+        new addNew().getInstance().addNewBilliardTable(id, name, price, type);
         
         txtIdBilliardTable.setText("");
         txtNameBilliardTable.setText("");
@@ -504,6 +523,10 @@ public class TableForm extends javax.swing.JInternalFrame {
 
     private void saveNewInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewInfoBtnActionPerformed
         // TODO add your handling code here:
+        if (txtEditNameBilliardTable.getText().isEmpty() || txtEditPriceBilliardTable.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int x = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn lưu thông tin bàn không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (x != JOptionPane.YES_OPTION) {
             return;
@@ -511,8 +534,8 @@ public class TableForm extends javax.swing.JInternalFrame {
         String id = txtEditIdBilliardTable.getText();
         String name = txtEditNameBilliardTable.getText();
         Double price = Double.parseDouble(txtEditPriceBilliardTable.getText());
-        String status = txtStatus.getSelectedItem().toString();
-        new edit().getInstance().editBilliardTable(id, name, price, status);
+        String type = txttype.getSelectedItem().toString();
+        new edit().getInstance().editBilliardTable(id, name, price, type);
 
         JOptionPane.showMessageDialog(null, "Lưu thông tin bàn thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         editBilliardTable.setVisible(false);
@@ -609,6 +632,7 @@ public class TableForm extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelAddNewBtn;
     private javax.swing.JButton CancelSaveNewInfoBtn;
+    private javax.swing.JComboBox<String> TypeTableCombo;
     private javax.swing.JDialog addBilliardTable;
     private javax.swing.JButton addNewBilliardTableBtn;
     private javax.swing.JButton addNewBtn;
@@ -624,6 +648,7 @@ public class TableForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -641,6 +666,6 @@ public class TableForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtIdBilliardTable;
     private javax.swing.JTextField txtNameBilliardTable;
     private javax.swing.JTextField txtPriceBilliardTable;
-    private javax.swing.JComboBox<String> txtStatus;
+    private javax.swing.JComboBox<String> txttype;
     // End of variables declaration//GEN-END:variables
 }

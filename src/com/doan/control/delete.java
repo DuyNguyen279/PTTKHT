@@ -5,7 +5,9 @@
 package com.doan.control;
 
 import com.doan.dao.CueDAO;
+import com.doan.dao.ItemDAO;
 import com.doan.dao.billiardTableDAO;
+import com.doan.dao.customerDAO;
 
 /**
  *
@@ -22,5 +24,13 @@ public class delete {
 
     public void deleteCue(String id){
         new CueDAO().getInstance().softdelete(id);
+    }
+
+    public void deleteItem(String id){
+        new ItemDAO().getInstance().softdelete(id);
+    }
+
+    public void deleteCustomer(String id){
+        new customerDAO().getInstance().softdelete(id);
     }
 }

@@ -7,6 +7,8 @@ package com.doan.dao;
 import com.doan.database.JDBCUtil;
 import com.doan.model.employee;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +26,7 @@ public class employeeDAO implements DaoInterface<employee> {
         Connection conn = JDBCUtil.getConnection();
         try {
             String sql = "INSERT INTO employee (emp_id, emp_name, emp_phone, email, is_delete, acc_id) VALUES (?, ?, ?, ?, ?, ?)";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, t.getEmp_id());
             ps.setString(2, t.getEmp_name());
             ps.setString(3, t.getEmp_phone());
@@ -44,8 +46,8 @@ public class employeeDAO implements DaoInterface<employee> {
         int ketqua = 0;
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "UPDATE employee SET emp_name = ?, emp_phone = ?, email = ?, is_delete = ?, acc_id = ? WHERE emp_id = ?";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "UPDATE employees SET emp_name = ?, emp_phone = ?, email = ?, is_delete = ?, acc_id = ? WHERE emp_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, t.getEmp_name());
             ps.setString(2, t.getEmp_phone());
             ps.setString(3, t.getEmail());
@@ -65,8 +67,8 @@ public class employeeDAO implements DaoInterface<employee> {
         int ketqua = 0;
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "UPDATE employee SET is_delete = ? WHERE emp_id = ?";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "UPDATE employees SET is_delete = ? WHERE emp_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setBoolean(1, t.isIs_delete());
             ps.setString(2, t.getEmp_id());
             ketqua = ps.executeUpdate();
@@ -82,9 +84,9 @@ public class employeeDAO implements DaoInterface<employee> {
         ArrayList<employee> list = new ArrayList<>();
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "SELECT * FROM employee WHERE is_delete = 0";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-            java.sql.ResultSet rs = ps.executeQuery();
+            String sql = "SELECT * FROM employees WHERE is_delete = 0";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 employee t = new employee(rs.getString("emp_id"), rs.getString("emp_name"), rs.getString("emp_phone"), rs.getString("email"), rs.getBoolean("is_delete"), rs.getString("acc_id"));
                 list.add(t);
@@ -101,10 +103,10 @@ public class employeeDAO implements DaoInterface<employee> {
         employee t = null;
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "SELECT * FROM employee WHERE emp_id = ? AND is_delete = 0";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "SELECT * FROM employees WHERE emp_id = ? AND is_delete = 0";
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
-            java.sql.ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 t = new employee(rs.getString("emp_id"), rs.getString("emp_name"), rs.getString("emp_phone"), rs.getString("email"), rs.getBoolean("is_delete"), rs.getString("acc_id"));
             }
@@ -113,6 +115,24 @@ public class employeeDAO implements DaoInterface<employee> {
             e.printStackTrace();
         }
         return t;
+    }
+
+    public String getEmpIdByAccId(String acc_id) {
+        String emp_id = null;
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "SELECT emp_id FROM employees WHERE acc_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, acc_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                emp_id = rs.getString("emp_id");
+            }
+            JDBCUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return emp_id;
     }
     
 }

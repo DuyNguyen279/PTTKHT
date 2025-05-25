@@ -5,6 +5,7 @@
 package com.doan.view;
 
 import com.doan.dao.accountDAO;
+import com.doan.dao.employeeDAO;
 import com.doan.model.account;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -191,7 +192,7 @@ public class loginForm extends javax.swing.JFrame {
                         this.dispose();
                         String role = acc.getRole();
                         if(role.equals("Manager") || role.equals("Admin")){
-                            managerForm ma = new managerForm();
+                            managerForm ma = new managerForm(acc);
                             //ManagerView ma = new ManagerView(acc);
                             ma.setVisible(true);
                             //ma.setName(acc.getTenTK());

@@ -368,6 +368,9 @@ public class CueForm extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder("Chỉnh Sửa"));
         jToolBar1.setRollover(true);
 
@@ -526,6 +529,14 @@ public class CueForm extends javax.swing.JInternalFrame {
 
     private void saveNewInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewInfoBtnActionPerformed
         // TODO add your handling code here:
+        if (txtEditNameCue.getText().isEmpty() || txtEditPriceCue.getText().isEmpty() || txtEditQuantityCue.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int x = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn lưu thay đổi không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (x != JOptionPane.YES_OPTION) {
+            return;
+        }
         String id = txtEditIdCue.getText();
         String name = txtEditNameCue.getText();
         Double price = Double.parseDouble(txtEditPriceCue.getText());

@@ -124,4 +124,40 @@ public class customerDAO implements DaoInterface<customer> {
         }
         return t;
     }  
+
+    public customer selectByPhone(String phone) {
+        customer t = null;
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM customer WHERE cus_phone = ? AND is_delete = 0";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, phone);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                t = new customer();
+                t.setCus_id(rs.getString("cus_id"));
+                t.setCus_name(rs.getString("cus_name"));
+                t.setCus_phone(rs.getString("cus_phone"));
+                t.setPoint(rs.getInt("point"));
+                t.setIs_delete(rs.getBoolean("is_delete"));
+            }
+            JDBCUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+
+    public void softdelete(String id) {
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "UPDATE customer SET is_delete = 1 WHERE cus_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+            JDBCUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

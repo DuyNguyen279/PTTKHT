@@ -15,8 +15,7 @@ public class bill {
     private String cus_id;
     private boolean is_done;
 
-    public bill(String bill_id, LocalDateTime created_at, double total, List<item> items, List<cue> cues, String emp_id,
-            String tab_id, String cus_id, boolean is_done) {
+    public bill(String bill_id, LocalDateTime created_at, double total, List<item> items, List<cue> cues, String emp_id, String tab_id, String cus_id, boolean is_done) {
         this.bill_id = bill_id;
         this.created_at = created_at;
         this.total = total;
@@ -110,4 +109,5 @@ public class bill {
     public void setIs_done(boolean is_done) {
         this.is_done = is_done;
     }
+
 }
