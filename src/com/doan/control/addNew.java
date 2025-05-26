@@ -37,8 +37,10 @@ public class addNew {
         new ItemDAO().getInstance().insert(i);
     }
 
-    public void addNewCustomer(String id, String name, String phone){
+    public int addNewCustomer(String id, String name, String phone){
+        int ketqua = 0;
         customer c = new customer(id, name, phone,0,  false);
-        new customerDAO().getInstance().insert(c);
+        ketqua = new customerDAO().getInstance().insert(c);
+        return ketqua;
     }
 }

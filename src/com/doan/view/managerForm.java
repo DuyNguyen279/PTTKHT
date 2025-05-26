@@ -179,6 +179,11 @@ public class managerForm extends javax.swing.JFrame {
         ReportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/analytics48.png"))); // NOI18N
         ReportBtn.setText("Thống Kê");
         ReportBtn.setMargin(new java.awt.Insets(10, 14, 10, 14));
+        ReportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportBtnActionPerformed(evt);
+            }
+        });
         jToolBar1.add(ReportBtn);
 
         javax.swing.GroupLayout navLayout = new javax.swing.GroupLayout(nav);
@@ -352,6 +357,17 @@ public class managerForm extends javax.swing.JFrame {
         MainContent.repaint();
         MainContent.setVisible(true);
     }//GEN-LAST:event_reservedBtnActionPerformed
+
+    private void ReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportBtnActionPerformed
+        // TODO add your handling code here:
+        ReportForm rf = new ReportForm();
+        MainContent.removeAll();
+        MainContent.add(rf).setVisible(true);
+        rf.setSize(MainContent.getWidth(), MainContent.getHeight());
+        MainContent.revalidate();
+        MainContent.repaint();
+        MainContent.setVisible(true);
+    }//GEN-LAST:event_ReportBtnActionPerformed
 
     /**
      * @param args the command line arguments

@@ -297,4 +297,30 @@ public class BillDAO implements DaoInterface<bill> {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<bill> getBillInMonth(int month, int year) {
+        ArrayList<bill> list = new ArrayList<>();
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM bill WHERE MONTH(created_at) = ? AND YEAR(created_at) = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, month);
+            ps.setInt(2, year);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String bill_id = rs.getString("bill_id");
+                Timestamp created_at = rs.getTimestamp("created_at");
+                double total = rs.getDouble("total");
+                String tab_id = rs.getString("tab_id");
+                String emp_id = rs.getString("emp_id");
+                String cus_id = rs.getString("cus_id");
+                boolean is_done = rs.getBoolean("is_done");
+                bill t = new bill(bill_id, created_at.toLocalDateTime(), total, new ArrayList<>(), new ArrayList<>(), emp_id, tab_id, cus_id,is_done);
+                list.add(t);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

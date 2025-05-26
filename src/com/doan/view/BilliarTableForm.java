@@ -88,6 +88,8 @@ public class BilliarTableForm extends javax.swing.JPanel {
 
         this.a = acc;
         working();
+
+        allForms.add(this);
         // startReservationTimer();
     }
 
@@ -584,23 +586,23 @@ public class BilliarTableForm extends javax.swing.JPanel {
 
     public void updateReservationStatus() {
         List<reservation> listReserved = new ReservedDAO().getInstance().selectAll();
-            List<reservation> listCurrReserved = new ArrayList<>();
-            for (reservation re : listReserved) {
-                LocalDate today = java.time.LocalDate.now();
-                if (re.getStart_time() != null && re.getStart_time().toLocalDate().equals(today) && re.getTab_id().equals(jLabel2.getText())) {
-                    listCurrReserved.add(re);
-                }
+        List<reservation> listCurrReserved = new ArrayList<>();
+        for (reservation re : listReserved) {
+            LocalDate today = java.time.LocalDate.now();
+            if (re.getStart_time() != null && re.getStart_time().toLocalDate().equals(today) && re.getTab_id().equals(jLabel2.getText()) && re.getStatus().equals("Đang chờ")) {
+                listCurrReserved.add(re);
             }
-            for (reservation r : listCurrReserved) {
-                LocalDateTime now = LocalDateTime.now();
-                if (now.isAfter(r.getStart_time().minusHours(2)) && now.isBefore(r.getStart_time())) {
-                    setBackgroundColor("Đang chờ");
-                    res_id = r.getRes_id();
-                    break;
-                } else if (Status != null) {
-                    setBackgroundColor(Status); // Trả lại màu cũ nếu không còn trong khoảng
-                }
+        }
+        for (reservation r : listCurrReserved) {
+            LocalDateTime now = LocalDateTime.now();
+            if (now.isAfter(r.getStart_time().minusHours(2)) && now.isBefore(r.getStart_time())) {
+                setBackgroundColor("Đang chờ");
+                res_id = r.getRes_id();
+                break;
+            } else if (Status != null) {
+                setBackgroundColor(Status); // Trả lại màu cũ nếu không còn trong khoảng
             }
+        }
     }
     
     private void doneBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneBtnActionPerformed

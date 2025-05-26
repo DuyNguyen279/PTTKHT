@@ -11,7 +11,6 @@ import com.doan.control.generate;
 import com.doan.dao.customerDAO;
 import com.doan.model.customer;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -487,10 +486,13 @@ public class customerForm extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
             return;
         }
-        new addNew().getInstance().addNewCustomer(cusId, cusName, cusPhone);
-        JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công");
-        setDataTable(new customerDAO().getInstance().selectAll());
-        addNewCus.setVisible(false);
+        int x = new addNew().getInstance().addNewCustomer(cusId, cusName, cusPhone);
+        if (x != 0){
+            JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công");
+            setDataTable(new customerDAO().getInstance().selectAll());
+            addNewCus.setVisible(false);
+        }
+        
     }//GEN-LAST:event_addNewICustomerBtnActionPerformed
 
     private void CancelAddNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelAddNewBtnActionPerformed

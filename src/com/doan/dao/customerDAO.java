@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +36,7 @@ public class customerDAO implements DaoInterface<customer> {
             ketqua = ps.executeUpdate();
             JDBCUtil.closeConnection(conn);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi thêm khách hàng: " + e.getMessage());
             e.printStackTrace();
         }
         return ketqua;

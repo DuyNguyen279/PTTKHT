@@ -328,8 +328,9 @@ public class BilliarTable extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void startGlobalReservationTimer(){
-        golbalTimmer = new Timer(60000, e -> {
+        golbalTimmer = new Timer(10000, e -> {
             for (BilliarTableForm form : BilliarTableForm.allForms) {
+                
                 form.updateReservationStatus();
             }
         });
