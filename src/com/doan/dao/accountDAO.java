@@ -23,7 +23,7 @@ public class accountDAO implements DaoInterface<account> {
             ps.setString(2, t.getAcc_name());
             ps.setString(3, t.getUsername());
             ps.setString(4, t.getPassword());
-            ps.setBoolean(4, t.getStatus());
+            ps.setBoolean(5, t.getStatus());
             ps.setString(6, t.getRole());
             ketqua = ps.executeUpdate();
             JDBCUtil.closeConnection(conn);

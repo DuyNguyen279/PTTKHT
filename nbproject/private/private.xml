@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/PTTKHT/src/com/doan/view/BilliarTable.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/ItemForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/BilliarTableForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/ReservedForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/ReportForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/customerForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/control/addNew.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/dao/customerDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

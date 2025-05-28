@@ -25,7 +25,7 @@ public class employeeDAO implements DaoInterface<employee> {
         int ketqua = 0;
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "INSERT INTO employee (emp_id, emp_name, emp_phone, email, is_delete, acc_id) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO employees (emp_id, emp_name, emp_phone, email, is_delete, acc_id) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, t.getEmp_id());
             ps.setString(2, t.getEmp_name());
@@ -133,6 +133,19 @@ public class employeeDAO implements DaoInterface<employee> {
             e.printStackTrace();
         }
         return emp_id;
+    }
+
+    public void softdelete (String id){
+        Connection conn = JDBCUtil.getConnection();
+        try {
+            String sql = "UPDATE employees SET is_delete = 1 WHERE emp_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+            JDBCUtil.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

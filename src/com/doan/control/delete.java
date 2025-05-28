@@ -8,6 +8,7 @@ import com.doan.dao.CueDAO;
 import com.doan.dao.ItemDAO;
 import com.doan.dao.billiardTableDAO;
 import com.doan.dao.customerDAO;
+import com.doan.dao.employeeDAO;
 
 /**
  *
@@ -32,5 +33,9 @@ public class delete {
 
     public void deleteCustomer(String id){
         new customerDAO().getInstance().softdelete(id);
+    }
+
+    public void deleteEmployee(String id){
+        new employeeDAO().getInstance().softdelete(id);
     }
 }

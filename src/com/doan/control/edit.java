@@ -5,7 +5,9 @@
 package com.doan.control;
 
 import com.doan.dao.CueDAO;
+import com.doan.dao.ItemDAO;
 import com.doan.dao.billiardTableDAO;
+import com.doan.dao.customerDAO;
 import com.doan.model.billiard_table;
 import com.doan.model.cue;
 import com.doan.model.customer;
@@ -34,12 +36,12 @@ public class edit {
     }
 
     public void editItem(String id, String name, int quantity, Double price) {
-        item item = new com.doan.model.item(id, name, quantity, price, false);
-        new com.doan.dao.ItemDAO().getInstance().update(item);
+        item item = new item(id, name, quantity, price, false);
+        new ItemDAO().getInstance().update(item);
     }
 
     public void editCustomer(String id, String name, String phone) {
-        customer c = new com.doan.model.customer(id, name, phone, 0, false);
-        new com.doan.dao.customerDAO().getInstance().update(c);
+        customer c = new customer(id, name, phone, 0, false);
+        new customerDAO().getInstance().update(c);
     }
 }

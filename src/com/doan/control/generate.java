@@ -8,12 +8,16 @@ import com.doan.dao.BillDAO;
 import com.doan.dao.CueDAO;
 import com.doan.dao.ItemDAO;
 import com.doan.dao.ReservedDAO;
+import com.doan.dao.accountDAO;
 import com.doan.dao.billiardTableDAO;
 import com.doan.dao.customerDAO;
+import com.doan.dao.employeeDAO;
+import com.doan.model.account;
 import com.doan.model.bill;
 import com.doan.model.billiard_table;
 import com.doan.model.cue;
 import com.doan.model.customer;
+import com.doan.model.employee;
 import com.doan.model.item;
 import com.doan.model.reservation;
 import java.util.List;
@@ -142,6 +146,46 @@ public class generate {
                 check = 1;
             } else {
                 return "res"+i;
+            }
+        }
+        return null;
+    }
+
+    public String generateIdEmp(){
+        List<employee> all = new employeeDAO().getInstance().selectAll();
+        int i = all.size();
+        int check = 1;
+        while (check ==1){
+            i++;
+            for (employee x : all){
+                if (x.getEmp_id().equals("emp"+i)){
+                    check = 0;
+                }
+            }
+            if (check == 0 ){
+                check = 1;
+            } else {
+                return "emp"+i;
+            }
+        }
+        return null;
+    }
+
+    public String generateIdAcc(){
+        List<account> all = new accountDAO().getInstance().selectAll();
+        int i = all.size();
+        int check = 1;
+        while (check ==1){
+            i++;
+            for (account x : all){
+                if (x.getAcc_id().equals("acc"+i)){
+                    check = 0;
+                }
+            }
+            if (check == 0 ){
+                check = 1;
+            } else {
+                return "acc"+i;
             }
         }
         return null;

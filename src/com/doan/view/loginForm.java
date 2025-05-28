@@ -196,9 +196,9 @@ public class loginForm extends javax.swing.JFrame {
                             //ManagerView ma = new ManagerView(acc);
                             ma.setVisible(true);
                             //ma.setName(acc.getTenTK());
-                        } else if (role.equals("Employee")){
-                            //EmployeeView em = new EmployeeView(acc);
-                            //em.setVisible(true);     
+                        } else if (role.equals("staff")){
+                            employeeForm em = new employeeForm(acc);
+                            em.setVisible(true);     
                             //em.setName(acc.getTenTK());
                         }
                     }  else {

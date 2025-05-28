@@ -4,10 +4,15 @@
  */
 package com.doan.view;
 
+import com.doan.control.generate;
 import com.doan.dao.accountDAO;
 import com.doan.dao.employeeDAO;
 import com.doan.model.account;
+import com.doan.model.employee;
+
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,9 +41,17 @@ public class accountForm extends javax.swing.JInternalFrame {
             }
         };
         
-        String col [] = {"Mã Tài Khoản", "Tên Tài Khoản", "Username", "Password", "Status", "Role"};
+        String col [] = {"Mã Tài Khoản", "Tên Tài Khoản", "Username", "Status", "Role"};
         model.setColumnIdentifiers(col);
         listAcc.setModel(model);
+
+        List<employee> listEmp = new employeeDAO().getInstance().selectAll();
+        for(employee emp : listEmp){
+            if(emp.getAcc_id() == null || emp.getAcc_id().isEmpty()){
+                empsNoAcc.addItem(emp.getEmp_id());
+            }
+        }
+        
         
         setDataTable(new accountDAO().getInstance().selectAll());
     }
@@ -52,16 +65,193 @@ public class accountForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        createAccForEmp = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
+        txtIdAcc = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNameAcc = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        createBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtpassword = new javax.swing.JPasswordField();
+        txtConfirmPassword = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        empsNoAcc = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        addNewCue = new javax.swing.JButton();
-        delteCue = new javax.swing.JButton();
-        editCue = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        addNewAcc = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        changeStatusBtn = new javax.swing.JButton();
+        updateRoleBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listAcc = new javax.swing.JTable();
+
+        createAccForEmp.setTitle("Tạo Tài Khoản Cho Nhân Viên");
+        createAccForEmp.setSize(new java.awt.Dimension(1100, 800));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setBackground(new java.awt.Color(0, 64, 140));
+
+        jLabel1.setBackground(new java.awt.Color(0, 64, 140));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Tạo Tài Khoản Cho Nhân Viên");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+        );
+
+        label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        label.setText("Mã Tài Khoản");
+
+        txtIdAcc.setBackground(java.awt.SystemColor.controlHighlight);
+        txtIdAcc.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtIdAcc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        txtIdAcc.setOpaque(true);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("Tên Tài Khoản");
+
+        txtNameAcc.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setText("Password");
+
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        createBtn.setBackground(new java.awt.Color(51, 153, 0));
+        createBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        createBtn.setForeground(new java.awt.Color(255, 255, 255));
+        createBtn.setText("Tạo");
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBtnActionPerformed(evt);
+            }
+        });
+
+        cancelBtn.setBackground(new java.awt.Color(255, 51, 51));
+        cancelBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cancelBtn.setText("Hủy");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("UserName");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setText("Confirm Password");
+
+        txtpassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        txtConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Mã Nhân Viên");
+
+        empsNoAcc.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(45, 45, 45))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdAcc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNameAcc)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(txtpassword)
+                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(empsNoAcc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44)
+                .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(txtIdAcc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empsNoAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNameAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+        );
+
+        javax.swing.GroupLayout createAccForEmpLayout = new javax.swing.GroupLayout(createAccForEmp.getContentPane());
+        createAccForEmp.getContentPane().setLayout(createAccForEmpLayout);
+        createAccForEmpLayout.setHorizontalGroup(
+            createAccForEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        createAccForEmpLayout.setVerticalGroup(
+            createAccForEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setBorder(null);
 
@@ -73,33 +263,53 @@ public class accountForm extends javax.swing.JInternalFrame {
         jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder("Chỉnh Sửa"));
         jToolBar1.setRollover(true);
 
-        addNewCue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/add.png"))); // NOI18N
-        addNewCue.setText("Thêm");
-        addNewCue.setFocusable(false);
-        addNewCue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addNewCue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(addNewCue);
+        addNewAcc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/add.png"))); // NOI18N
+        addNewAcc.setText("Thêm");
+        addNewAcc.setFocusable(false);
+        addNewAcc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addNewAcc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        addNewAcc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewAccActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(addNewAcc);
 
-        delteCue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/delete.png"))); // NOI18N
-        delteCue.setText("Xóa");
-        delteCue.setFocusable(false);
-        delteCue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        delteCue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(delteCue);
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/delete.png"))); // NOI18N
+        deleteBtn.setText("Xóa");
+        deleteBtn.setFocusable(false);
+        deleteBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        deleteBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(deleteBtn);
 
-        editCue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/edit.png"))); // NOI18N
-        editCue.setText("Chỉnh Sửa");
-        editCue.setFocusable(false);
-        editCue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editCue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(editCue);
+        changeStatusBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/changeStatus.png"))); // NOI18N
+        changeStatusBtn.setText("Chuyển Trạng Thái");
+        changeStatusBtn.setFocusable(false);
+        changeStatusBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        changeStatusBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        changeStatusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeStatusBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(changeStatusBtn);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/view.png"))); // NOI18N
-        jButton1.setText("Xem Chi Tiết");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        updateRoleBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/doan/icon/level_up48.png"))); // NOI18N
+        updateRoleBtn.setText("Nâng Cấp Vai Trò");
+        updateRoleBtn.setFocusable(false);
+        updateRoleBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        updateRoleBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        updateRoleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateRoleBtnActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(updateRoleBtn);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -178,6 +388,108 @@ public class accountForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        // TODO add your handling code here:
+        if (txtNameAcc.getText().isEmpty() || txtUsername.getText().isEmpty() || txtpassword.getText().isEmpty() || txtConfirmPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!txtpassword.getText().equals(txtConfirmPassword.getText())){
+            JOptionPane.showMessageDialog(this, "Mật khẩu không khớp", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        account acc = new account();
+        acc.setAcc_id(txtIdAcc.getText());
+        acc.setAcc_name(txtNameAcc.getText());
+        acc.setUsername(txtUsername.getText());
+        acc.setPassword(txtpassword.getText());
+        acc.setStatus(true);
+        acc.setRole("staff");
+        new accountDAO().getInstance().insert(acc);
+        employee emp = new employeeDAO().getInstance().selectById(empsNoAcc.getSelectedItem().toString());
+        emp.setAcc_id(txtIdAcc.getText());
+        new employeeDAO().getInstance().update(emp);
+        JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        empsNoAcc.removeItem(empsNoAcc.getSelectedItem());
+        setDataTable(new accountDAO().getInstance().selectAll());
+        createAccForEmp.setVisible(false);
+    }//GEN-LAST:event_createBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        // TODO add your handling code here:
+        createAccForEmp.setVisible(false);
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void addNewAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewAccActionPerformed
+        // TODO add your handling code here:
+        txtIdAcc.setText(new generate().getInstance().generateIdAcc());
+        txtNameAcc.setText("");
+        txtUsername.setText("");
+        txtpassword.setText("");
+        txtConfirmPassword.setText("");
+        createAccForEmp.setLocationRelativeTo(null);
+        createAccForEmp.setVisible(true);
+    }//GEN-LAST:event_addNewAccActionPerformed
+
+    private void changeStatusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeStatusBtnActionPerformed
+        // TODO add your handling code here:
+        int i_row = listAcc.getSelectedRow();
+        if (i_row < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tài khoản cần chuyển trạng thái", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String acc_id = model.getValueAt(i_row, 0).toString();
+        account acc = new accountDAO().getInstance().selectById(acc_id);
+        if (acc.getStatus()) {
+            acc.setStatus(false);
+            JOptionPane.showMessageDialog(this, "Đã chuyển trạng thái tài khoản sang không hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            acc.setStatus(true);
+            JOptionPane.showMessageDialog(this, "Đã chuyển trạng thái tài khoản sang hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        new accountDAO().getInstance().update(acc);
+        setDataTable(new accountDAO().getInstance().selectAll());
+    }//GEN-LAST:event_changeStatusBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        int i_row = listAcc.getSelectedRow();
+        if (i_row < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản cần xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String acc_id = model.getValueAt(i_row, 0).toString();
+        String emp_id = new employeeDAO().getInstance().getEmpIdByAccId(acc_id);
+        if (emp_id != null) {
+            employee emp = new employeeDAO().getInstance().selectById(emp_id);
+            emp.setAcc_id(null);
+            new employeeDAO().getInstance().update(emp);
+        }
+        account t = new accountDAO().getInstance().selectById(acc_id);
+        new accountDAO().getInstance().delete(t);
+        JOptionPane.showMessageDialog(null, "Đã xóa tài khoản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        setDataTable(new accountDAO().getInstance().selectAll());
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void updateRoleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRoleBtnActionPerformed
+        // TODO add your handling code here:
+        int i_row = listAcc.getSelectedRow();
+        if (i_row < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản cần nâng cấp vai trò", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (listAcc.getValueAt(i_row, 4).toString().equals("Manager")) {
+            JOptionPane.showMessageDialog(null, "Tài khoản đã là Manager", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String acc_id = model.getValueAt(i_row, 0).toString();
+        account acc = new accountDAO().getInstance().selectById(acc_id);
+        acc.setRole("Manager");
+        new accountDAO().getInstance().update(acc);
+        JOptionPane.showMessageDialog(null, "Đã nâng cấp vai trò tài khoản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        setDataTable(new accountDAO().getInstance().selectAll());
+    }//GEN-LAST:event_updateRoleBtnActionPerformed
+
     private void setDataTable(List<account> list){
         model.setRowCount(0);
         for(account x : list){
@@ -185,7 +497,6 @@ public class accountForm extends javax.swing.JInternalFrame {
                 x.getAcc_id(),
                 x.getAcc_name(),
                 x.getUsername(),
-                x.getPassword(),
                 x.getStatus(),
                 x.getRole()
             });
@@ -193,15 +504,33 @@ public class accountForm extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNewCue;
-    private javax.swing.JButton delteCue;
-    private javax.swing.JButton editCue;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addNewAcc;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton changeStatusBtn;
+    private javax.swing.JDialog createAccForEmp;
+    private javax.swing.JButton createBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JComboBox<String> empsNoAcc;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel label;
     private javax.swing.JTable listAcc;
+    private javax.swing.JPasswordField txtConfirmPassword;
+    private javax.swing.JLabel txtIdAcc;
+    private javax.swing.JTextField txtNameAcc;
+    private javax.swing.JTextField txtUsername;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JButton updateRoleBtn;
     // End of variables declaration//GEN-END:variables
 }
