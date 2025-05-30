@@ -5,6 +5,10 @@
         <group>
             <file>file:/D:/PTTKHT/src/com/doan/view/loginForm.java</file>
             <file>file:/D:/PTTKHT/src/com/doan/database/JDBCUtil.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/ReportForm.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/emInfo.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/customerForm.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/accountForm.java</file>
         </group>
     </open-files>
 </project-private>

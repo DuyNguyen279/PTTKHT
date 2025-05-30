@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -80,6 +82,16 @@ public class ReservedForm extends javax.swing.JInternalFrame {
                 }
             }
         });
+
+        listTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting()) {
+                    int selectedRow = listTable.getSelectedRow();
+                    tab_id.setText(model2.getValueAt(selectedRow, 0).toString());
+                }
+            }
+});
+
 
         loadData(new ReservedDAO().getInstance().selectAll());
 
@@ -171,6 +183,7 @@ public class ReservedForm extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Mã Bàn");
 
+        tab_id.setEditable(false);
         tab_id.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tab_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
