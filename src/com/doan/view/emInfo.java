@@ -110,6 +110,7 @@ public class emInfo extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listEmp = new javax.swing.JTable();
 
+        createAccount.setTitle("Tạo Tài Khoản");
         createAccount.setModal(true);
         createAccount.setResizable(false);
         createAccount.setSize(new java.awt.Dimension(1100, 800));
@@ -258,6 +259,7 @@ public class emInfo extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        addNewEmpInfo.setTitle("Thêm Nhân Viên");
         addNewEmpInfo.setModal(true);
         addNewEmpInfo.setResizable(false);
         addNewEmpInfo.setSize(new java.awt.Dimension(1100, 800));
@@ -395,6 +397,7 @@ public class emInfo extends javax.swing.JInternalFrame {
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        detailEmpInfo.setTitle("Chỉnh Sửa Thông Tin Nhân Viên");
         detailEmpInfo.setModal(true);
         detailEmpInfo.setResizable(false);
         detailEmpInfo.setSize(new java.awt.Dimension(1100, 800));

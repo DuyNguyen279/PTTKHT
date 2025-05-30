@@ -90,6 +90,7 @@ public class customerForm extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listCus = new javax.swing.JTable();
 
+        addNewCus.setTitle("Thêm Khách Hàng");
         addNewCus.setModal(true);
         addNewCus.setSize(new java.awt.Dimension(1000, 800));
 
@@ -219,6 +220,7 @@ public class customerForm extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        editCus.setTitle("Chỉnh Sửa Thông Tin Khách Hàng");
         editCus.setModal(true);
         editCus.setSize(new java.awt.Dimension(1000, 800));
 

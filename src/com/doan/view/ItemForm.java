@@ -95,6 +95,7 @@ public class ItemForm extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listItem = new javax.swing.JTable();
 
+        addNewItem.setTitle("Thêm Sản Phẩm");
         addNewItem.setModal(true);
         addNewItem.setSize(new java.awt.Dimension(1000, 800));
 
@@ -237,6 +238,7 @@ public class ItemForm extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        editItem.setTitle("Chỉnh Sửa Thông Tin Sản Phẩm");
         editItem.setModal(true);
         editItem.setSize(new java.awt.Dimension(1000, 800));
 

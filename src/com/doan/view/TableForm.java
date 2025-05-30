@@ -103,6 +103,7 @@ public class TableForm extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableList = new javax.swing.JTable();
 
+        addBilliardTable.setTitle("Thêm Bàn Bida");
         addBilliardTable.setModal(true);
         addBilliardTable.setResizable(false);
         addBilliardTable.setSize(new java.awt.Dimension(1000, 600));
@@ -236,6 +237,7 @@ public class TableForm extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        editBilliardTable.setTitle("Chỉnh Sửa Thông Tin Bàn");
         editBilliardTable.setModal(true);
         editBilliardTable.setResizable(false);
         editBilliardTable.setSize(new java.awt.Dimension(1000, 600));

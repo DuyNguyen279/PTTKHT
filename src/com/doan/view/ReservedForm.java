@@ -147,6 +147,7 @@ public class ReservedForm extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listReserved = new javax.swing.JTable();
 
+        createReserve.setTitle("Đặt Trước");
         createReserve.setBackground(new java.awt.Color(255, 255, 255));
         createReserve.setModal(true);
         createReserve.setSize(new java.awt.Dimension(1100, 800));
@@ -343,6 +344,7 @@ public class ReservedForm extends javax.swing.JInternalFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        addNewCus.setTitle("Thêm Khách Hàng");
         addNewCus.setModal(true);
         addNewCus.setSize(new java.awt.Dimension(1000, 800));
 

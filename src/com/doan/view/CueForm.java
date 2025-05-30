@@ -97,6 +97,7 @@ public class CueForm extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listCue = new javax.swing.JTable();
 
+        addCue.setTitle("Thêm Gậy Mới");
         addCue.setModal(true);
         addCue.setResizable(false);
         addCue.setSize(new java.awt.Dimension(1000, 600));
@@ -232,6 +233,7 @@ public class CueForm extends javax.swing.JInternalFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        editInfoCue.setTitle("Chỉnh Sửa Thông Tin Gậy");
         editInfoCue.setModal(true);
         editInfoCue.setResizable(false);
         editInfoCue.setSize(new java.awt.Dimension(1000, 600));

@@ -60,10 +60,11 @@ public class BilliarTable extends javax.swing.JInternalFrame {
         for (billiard_table x : listTAble) {
             if (!x.isIs_delete()) {
                 BilliarTableForm billiarTableForm = new BilliarTableForm(acc);
-                billiarTableForm.setTableName(x.getTab_id());
+                billiarTableForm.setTableId(x.getTab_id());
+                billiarTableForm.setTableName(x.getTab_name());
                 billiarTableForm.setTableType(x.getTab_type());
                 billiarTableForm.setBackgroundColor(x.getStatus());
-                billiarTableForm.setPreferredSize(new java.awt.Dimension(200, 200)); // Kích thước cố định
+                billiarTableForm.setPreferredSize(new java.awt.Dimension(230, 230)); // Kích thước cố định
                 MainContent.add(billiarTableForm);
             }
         }

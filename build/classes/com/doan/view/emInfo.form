@@ -4,6 +4,7 @@
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="createAccount">
       <Properties>
+        <Property name="title" type="java.lang.String" value="T&#x1ea1;o T&#xe0;i Kho&#x1ea3;n"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -276,6 +277,7 @@
     </Container>
     <Container class="javax.swing.JDialog" name="addNewEmpInfo">
       <Properties>
+        <Property name="title" type="java.lang.String" value="Th&#xea;m Nh&#xe2;n Vi&#xea;n"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -526,6 +528,7 @@
     </Container>
     <Container class="javax.swing.JDialog" name="detailEmpInfo">
       <Properties>
+        <Property name="title" type="java.lang.String" value="Ch&#x1ec9;nh S&#x1eed;a Th&#xf4;ng Tin Nh&#xe2;n Vi&#xea;n"/>
         <Property name="modal" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
