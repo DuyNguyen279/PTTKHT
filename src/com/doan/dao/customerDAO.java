@@ -84,7 +84,7 @@ public class customerDAO implements DaoInterface<customer> {
         ArrayList<customer> list = new ArrayList<>();
         Connection conn = JDBCUtil.getConnection();
         try {
-            String sql = "SELECT * FROM customer WHERE is_delete = 0";
+            String sql = "SELECT * FROM customer";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
