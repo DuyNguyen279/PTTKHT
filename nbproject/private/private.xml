@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/PTTKHT/src/com/doan/view/emInfo.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/accountForm.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/ReportForm.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/ServiceForm.java</file>
+            <file>file:/D:/PTTKHT/src/com/doan/view/managerForm.java</file>
             <file>file:/D:/PTTKHT/src/com/doan/view/loginForm.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/database/JDBCUtil.java</file>
-            <file>file:/D:/PTTKHT/src/com/doan/view/ReservedForm.java</file>
         </group>
     </open-files>
 </project-private>

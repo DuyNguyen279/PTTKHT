@@ -727,7 +727,7 @@ public class BilliarTableForm extends javax.swing.JPanel {
         table.setEnd(null);
         table.setStatus("Trống");
         new end().getInstance().updateTab(table);
-        JOptionPane.showMessageDialog(null, "Kết thúc thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         endRent.setVisible(false);
         setBackgroundColor("Trống");
     }//GEN-LAST:event_DoneActionPerformed
@@ -837,7 +837,7 @@ public class BilliarTableForm extends javax.swing.JPanel {
 
                         endRent.setLocationRelativeTo(null);
                         endRent.setVisible(true); 
-                        
+        
                     } 
 
                 }

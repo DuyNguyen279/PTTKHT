@@ -12,6 +12,7 @@ import com.doan.model.bill;
 import com.doan.model.billiard_table;
 import com.doan.model.cue;
 import com.doan.model.item;
+import static com.doan.view.managerForm.a;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -78,6 +79,8 @@ public class ServiceForm extends javax.swing.JInternalFrame {
             loadDataTable2();
         } else {
             JOptionPane.showMessageDialog(this, "Không có bàn nào đang sử dụng!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            BilliarTable bt = new BilliarTable(a);
+            
         }
         listBilliarTable.addActionListener(new ActionListener() {
             @Override
@@ -373,6 +376,10 @@ public class ServiceForm extends javax.swing.JInternalFrame {
 
     private void addItemToBillBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToBillBTNActionPerformed
         // TODO add your handling code here:
+        if (listBilliarTable.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Chưa có bàn đang được sử dụng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int i_row = allItem.getSelectedRow();
         if (i_row == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần thêm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
