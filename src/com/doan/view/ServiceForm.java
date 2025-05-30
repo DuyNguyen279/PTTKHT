@@ -87,6 +87,7 @@ public class ServiceForm extends javax.swing.JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 loadDataTable2();
                 calculate();
+                tmpBill = new BillDAO().getInstance().getTmpBill(listBilliarTable.getSelectedItem().toString());
             }
         });
         
