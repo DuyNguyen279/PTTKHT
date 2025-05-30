@@ -111,6 +111,8 @@ public class ReportForm extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        listReport.setRowHeight(30);
+        listReport.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JScroll.setViewportView(listReport);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

@@ -405,6 +405,13 @@ public class accountForm extends javax.swing.JInternalFrame {
         acc.setPassword(txtpassword.getText());
         acc.setStatus(true);
         acc.setRole("staff");
+        List<account> listAcc = new accountDAO().getInstance().selectAll();
+        for (account x : listAcc) {
+            if (x.getUsername().equals(txtUsername.getText())) {
+                JOptionPane.showMessageDialog(this, "Username đã tồn tại", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
         new accountDAO().getInstance().insert(acc);
         employee emp = new employeeDAO().getInstance().selectById(empsNoAcc.getSelectedItem().toString());
         emp.setAcc_id(txtIdAcc.getText());
@@ -435,17 +442,17 @@ public class accountForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int i_row = listAcc.getSelectedRow();
         if (i_row < 0) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn tài khoản cần chuyển trạng thái", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản cần chuyển trạng thái", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
         String acc_id = model.getValueAt(i_row, 0).toString();
         account acc = new accountDAO().getInstance().selectById(acc_id);
         if (acc.getStatus()) {
             acc.setStatus(false);
-            JOptionPane.showMessageDialog(this, "Đã chuyển trạng thái tài khoản sang không hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Đã chuyển trạng thái tài khoản sang không hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             acc.setStatus(true);
-            JOptionPane.showMessageDialog(this, "Đã chuyển trạng thái tài khoản sang hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Đã chuyển trạng thái tài khoản sang hoạt động", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
         new accountDAO().getInstance().update(acc);
         setDataTable(new accountDAO().getInstance().selectAll());
@@ -453,6 +460,10 @@ public class accountForm extends javax.swing.JInternalFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        int Confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa tài khoản này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (Confirm != JOptionPane.YES_OPTION) {
+            return; 
+        }
         int i_row = listAcc.getSelectedRow();
         if (i_row < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản cần xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
